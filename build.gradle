@@ -1,0 +1,36 @@
+buildscript {
+    dependencies {
+        classpath 'com.diffplug.spotless:spotless-plugin-gradle:3.24.3'
+    }
+
+}
+
+plugins {
+    id 'java'
+}
+
+group 'com.pxc'
+version '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    annotationProcessor 'org.projectlombok:lombok:1.18.16'
+
+    testAnnotationProcessor "org.projectlombok:lombok:1.18.16"
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.6.0'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine'
+}
+
+test {
+    useJUnitPlatform()
+}
+
+subprojects {
+    apply plugin: 'java'
+    apply plugin: 'com.diffplug.gradle.spotless'
+
+    compileJava.dependsOn spotlessApply
+}
